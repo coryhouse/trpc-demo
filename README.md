@@ -1,4 +1,4 @@
-# TRPC Demo
+# tRPC Demo
 
 This tRPC demo uses Express, React, and Yarn in a monorepo.
 
