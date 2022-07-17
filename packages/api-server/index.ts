@@ -14,7 +14,7 @@ const messages: ChatMessage[] = [
   { user: "user2", message: "Hi" },
 ];
 
-const defaultNumMessagesToReturn = 10;
+const defaultMaxNumMessagesToReturn = 10;
 
 const appRouter = trpc
   .router()
@@ -32,7 +32,7 @@ const appRouter = trpc
     },
   })
   .query("getMessages", {
-    input: z.number().default(defaultNumMessagesToReturn),
+    input: z.number().default(defaultMaxNumMessagesToReturn),
     resolve({ input }) {
       return messages.slice(-input);
     },
@@ -52,9 +52,12 @@ const appRouter = trpc
 export type AppRouter = typeof appRouter;
 
 const app = express();
+
+// Enable cors since our frontend runs on a different port than the api-server
 app.use(cors());
 const port = 8080;
 
+// The only route we need. All requests sent here are handled via the appRouter declared above.
 app.use(
   "/trpc",
   trpcExpress.createExpressMiddleware({
