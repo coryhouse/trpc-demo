@@ -30,7 +30,7 @@ function AppContent() {
   }
   return (
     <div className="max-w-6xl mx-auto mt-10 text-3xl">
-      <div className="mt-10">
+      <form className="mt-10">
         <Input
           value={user}
           onChange={(e) => setUser(e.target.value)}
@@ -41,8 +41,10 @@ function AppContent() {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Message"
         />
-      </div>
-      <Button onClick={onAdd}>Add message</Button>
+        <Button type="submit" onClick={onAdd}>
+          Add message
+        </Button>
+      </form>
       <div>{JSON.stringify(messages.data)}</div>
     </div>
   );
