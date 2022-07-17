@@ -1,7 +1,8 @@
 // Simple button styled with Tailwind
 import React from "react";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+// Typing strategy per https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/#wrappingmirroring-a-html-element
+interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   children: React.ReactNode;
 }
 
