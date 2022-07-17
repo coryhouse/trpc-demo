@@ -15,7 +15,7 @@ function AppContent() {
   const messages = trpc.useQuery(["getMessages"]);
   const addMessage = trpc.useMutation("addMessage");
 
-  function onAdd() {
+  function onSubmit() {
     addMessage.mutate(
       {
         user,
@@ -28,9 +28,10 @@ function AppContent() {
       }
     );
   }
+
   return (
     <div className="max-w-6xl mx-auto mt-10 text-3xl">
-      <form className="mt-10">
+      <form className="mt-10" onSubmit={onSubmit}>
         <Input
           value={user}
           onChange={(e) => setUser(e.target.value)}
@@ -41,9 +42,7 @@ function AppContent() {
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Message"
         />
-        <Button type="submit" onClick={onAdd}>
-          Add message
-        </Button>
+        <Button type="submit">Add message</Button>
       </form>
       <div>{JSON.stringify(messages.data)}</div>
     </div>
