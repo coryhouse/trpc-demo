@@ -9,6 +9,9 @@ const appRouter = trpc.router().query("hello", {
   },
 });
 
+// Export so we can access it on the client. This is the "t" in tRPC. :)
+export type AppRouter = typeof appRouter;
+
 const app = express();
 app.use(cors());
 const port = 8080;
