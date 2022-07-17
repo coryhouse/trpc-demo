@@ -4,21 +4,44 @@ import "./index.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { trpc } from "./trpc";
 import Button from "./Button";
+import Input from "./Input";
 
 const client = new QueryClient();
 
 function AppContent() {
-  const messages = trpc.useQuery(["getMessages", 1]);
+  const [user, setUser] = useState("");
+  const [message, setMessage] = useState("");
+
+  const messages = trpc.useQuery(["getMessages"]);
   const addMessage = trpc.useMutation("addMessage");
 
   function onAdd() {
-    addMessage.mutate({
-      user: "Jane",
-      message: "Hello",
-    });
+    addMessage.mutate(
+      {
+        user,
+        message,
+      },
+      {
+        onSuccess: () => {
+          client.invalidateQueries(["getMessages"]);
+        },
+      }
+    );
   }
   return (
-    <div className="mt-10 text-3xl mx-auto max-w-6xl">
+    <div className="max-w-6xl mx-auto mt-10 text-3xl">
+      <div className="mt-10">
+        <Input
+          value={user}
+          onChange={(e) => setUser(e.target.value)}
+          placeholder="User"
+        />
+        <Input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Message"
+        />
+      </div>
       <Button onClick={onAdd}>Add message</Button>
       <div>{JSON.stringify(messages.data)}</div>
     </div>
