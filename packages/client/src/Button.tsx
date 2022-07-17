@@ -7,7 +7,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function Button(props: ButtonProps) {
   return (
-    <button className="p-3 text-white bg-blue-500 border rounded shadow-lg outline-cyan-500">
+    <button
+      {...props}
+      className="p-3 text-white bg-blue-500 border rounded shadow-lg outline-cyan-500"
+    >
       {props.children}
     </button>
   );
