@@ -5,7 +5,7 @@
   "scripts": {
     "start": "ts-node index.ts"
   },
-  "//main": "NOTE: This is important so client can reference and install this package via Yarn workspace",
+  "//main": "NOTE: This is important so client can reference and install this package via Yarn workspace. And yep, referencing a .ts works! :)",
   "main": "index.ts",
   "dependencies": {
     "@trpc/server": "^9.26.1",
