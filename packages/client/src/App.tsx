@@ -3,14 +3,24 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { trpc } from "./trpc";
+import Button from "./Button";
 
 const client = new QueryClient();
 
 function AppContent() {
-  const hello = trpc.useQuery(["hello"]);
+  const messages = trpc.useQuery(["getMessages", 1]);
+  const addMessage = trpc.useMutation("addMessage");
+
+  function onAdd() {
+    addMessage.mutate({
+      user: "Jane",
+      message: "Hello",
+    });
+  }
   return (
     <div className="mt-10 text-3xl mx-auto max-w-6xl">
-      <div>{JSON.stringify(hello.data)}</div>
+      <Button onClick={onAdd}>Add message</Button>
+      <div>{JSON.stringify(messages.data)}</div>
     </div>
   );
 }
